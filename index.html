@@ -3,139 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enes Çelebi | Developer & Designer</title>
+    <title>ENES ÇELEBİ | Portfolio v2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-green: #00ff41; /* Klasik terminal yeşili */
-            --dark-bg: #0a0a0a;
-            --card-bg: #161616;
+            --primary: #00ff41; /* Neon Yeşil */
+            --bg: #050505;
+            --surface: rgba(255, 255, 255, 0.05);
+            --border: rgba(0, 255, 65, 0.2);
         }
 
+        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
         body {
-            background-color: var(--dark-bg);
-            color: #e0e0e0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
             margin: 0;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Arkaplan Matrix Tozları */
+        .bg-glow {
+            position: fixed;
+            top: 50%; left: 50%;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            pointer-events: none;
         }
 
         .container {
-            max-width: 900px;
             width: 90%;
-            padding: 40px 20px;
+            max-width: 1100px;
+            background: var(--surface);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
         }
 
-        header {
-            text-align: center;
-            border-bottom: 2px solid var(--primary-green);
-            padding-bottom: 20px;
-            margin-bottom: 40px;
+        /* Köşe Süslemeleri */
+        .container::before, .container::after {
+            content: ''; position: absolute; width: 30px; height: 30px;
+            border: 2px solid var(--primary);
         }
+        .container::before { top: -5px; left: -5px; border-right: 0; border-bottom: 0; }
+        .container::after { bottom: -5px; right: -5px; border-left: 0; border-top: 0; }
+
+        header { margin-bottom: 50px; }
+
+        .title-group { position: relative; display: inline-block; }
 
         h1 {
-            color: var(--primary-green);
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
             margin: 0;
+            letter-spacing: -2px;
+            background: linear-gradient(90deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .status {
-            font-size: 0.9rem;
-            color: #888;
+        .tagline {
+            color: var(--primary);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
             margin-top: 10px;
+            opacity: 0.8;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
 
         .card {
-            background: var(--card-bg);
-            border-left: 4px solid var(--primary-green);
-            padding: 20px;
-            transition: transform 0.3s;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 255, 65, 0.2);
+            border-color: var(--primary);
+            transform: translateY(-10px);
+            background: rgba(0, 255, 65, 0.02);
         }
 
         .card h3 {
-            color: var(--primary-green);
+            color: var(--primary);
+            font-size: 1.2rem;
             margin-top: 0;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
         }
 
-        .social-links {
+        .card p { font-size: 0.9rem; line-height: 1.6; color: #ccc; }
+
+        .stats-bar {
+            display: flex;
+            gap: 20px;
             margin-top: 50px;
-            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat-item { flex: 1; text-align: center; }
+        .stat-value { font-size: 1.5rem; color: var(--primary); font-weight: bold; }
+        .stat-label { font-size: 0.7rem; color: #666; text-transform: uppercase; }
+
+        .footer-nav {
+            margin-top: 40px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
         .btn {
-            display: inline-block;
-            padding: 10px 25px;
-            border: 1px solid var(--primary-green);
-            color: var(--primary-green);
+            padding: 12px 25px;
+            border: 1px solid var(--primary);
+            color: var(--primary);
             text-decoration: none;
-            margin: 10px;
-            border-radius: 5px;
-            transition: 0.3s;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border-radius: 8px;
+            background: transparent;
         }
 
         .btn:hover {
-            background: var(--primary-green);
-            color: black;
-            font-weight: bold;
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
         }
 
-        footer {
-            margin-top: auto;
-            padding: 20px;
-            font-size: 0.8rem;
-            color: #444;
-        }
+        /* Animasyon */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .container { animation: fadeIn 1s ease-out; }
+
     </style>
 </head>
 <body>
 
+<div class="bg-glow"></div>
+
 <div class="container">
     <header>
-        <h1>ENES ÇELEBİ</h1>
-        <div class="status">Sistem Durumu: Çevrimiçi | Developer & 3D Designer</div>
+        <div class="title-group">
+            <h1>ENES ÇELEBİ</h1>
+            <div class="tagline">Junior Developer & 3D Specialist</div>
+        </div>
     </header>
 
     <div class="grid">
         <div class="card">
-            <h3>Yazılım Geliştirme</h3>
-            <p>C#, C++ ve Python dillerinde projeler geliştiriyorum. Otomasyon sistemleri üzerine çalışıyorum.</p>
+            <h3>SOFTWARE_CORE</h3>
+            <p>> C#, C++, Python <br>> Florist Automation Project <br>> Algorithm Development</p>
         </div>
         <div class="card">
-            <h3>3D Tasarım</h3>
-            <p>Autodesk Fusion ile mekanik tasarımlar ve 3D modelleme süreçlerini yönetiyorum.</p>
+            <h3>ENGINEERING_MODULE</h3>
+            <p>> Autodesk Fusion 360 <br>> Mechanical Design <br>> Autonomous Vehicle Dev.</p>
         </div>
         <div class="card">
-            <h3>Robotik</h3>
-            <p>Otonom araçlar ve robotik yarışmalar için yazılımsal çözümler üretiyorum.</p>
+            <h3>PERSONAL_DATA</h3>
+            <p>> Location: Karaman, TR <br>> Education: 10th Grade <br>> English: B1 Level</p>
         </div>
     </div>
 
-    <div class="social-links">
-        <h2>Bana Ulaşın</h2>
-        <a href="https://instagram.com/tepkipolitik" class="btn" target="_blank">Instagram (Tepki Politik)</a>
-        <a href="https://instagram.com/Enes_celeb.i" class="btn" target="_blank">Kişisel Instagram</a>
-        <a href="mailto:eposta@adresiniz.com" class="btn">E-posta Gönder</a>
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-value">2026</div>
+            <div class="stat-label">Current Year</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">15</div>
+            <div class="stat-label">Subject Age</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">100%</div>
+            <div class="stat-label">Uptime</div>
+        </div>
+    </div>
+
+    <div class="footer-nav">
+        <a href="https://github.com/enes-celeb" class="btn">VIEW_GITHUB</a>
+        <a href="https://instagram.com/Enes_celeb.i" class="btn">INSTAGRAM_CONTACT</a>
+        <a href="mailto:iletisim@enes.com" class="btn">SEND_ENCRYPTED_MAIL</a>
     </div>
 </div>
-
-<footer>
-    &copy; 2026 Enes Çelebi - Tüm Sistemler Aktif.
-</footer>
 
 </body>
 </html>
