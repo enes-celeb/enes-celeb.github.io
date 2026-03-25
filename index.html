@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enes Çelebi | Developer & Designer</title>
+    <style>
+        :root {
+            --primary-green: #00ff41; /* Klasik terminal yeşili */
+            --dark-bg: #0a0a0a;
+            --card-bg: #161616;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 90%;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary-green);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--primary-green);
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin: 0;
+        }
+
+        .status {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-left: 4px solid var(--primary-green);
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 65, 0.2);
+        }
+
+        .card h3 {
+            color: var(--primary-green);
+            margin-top: 0;
+        }
+
+        .social-links {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            border: 1px solid var(--primary-green);
+            color: var(--primary-green);
+            text-decoration: none;
+            margin: 10px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--primary-green);
+            color: black;
+            font-weight: bold;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>ENES ÇELEBİ</h1>
+        <div class="status">Sistem Durumu: Çevrimiçi | Developer & 3D Designer</div>
+    </header>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Yazılım Geliştirme</h3>
+            <p>C#, C++ ve Python dillerinde projeler geliştiriyorum. Otomasyon sistemleri üzerine çalışıyorum.</p>
+        </div>
+        <div class="card">
+            <h3>3D Tasarım</h3>
+            <p>Autodesk Fusion ile mekanik tasarımlar ve 3D modelleme süreçlerini yönetiyorum.</p>
+        </div>
+        <div class="card">
+            <h3>Robotik</h3>
+            <p>Otonom araçlar ve robotik yarışmalar için yazılımsal çözümler üretiyorum.</p>
+        </div>
+    </div>
+
+    <div class="social-links">
+        <h2>Bana Ulaşın</h2>
+        <a href="https://instagram.com/tepkipolitik" class="btn" target="_blank">Instagram (Tepki Politik)</a>
+        <a href="https://instagram.com/Enes_celeb.i" class="btn" target="_blank">Kişisel Instagram</a>
+        <a href="mailto:eposta@adresiniz.com" class="btn">E-posta Gönder</a>
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 Enes Çelebi - Tüm Sistemler Aktif.
+</footer>
+
+</body>
+</html>
