@@ -3,205 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ENES ÇELEBİ | Portfolio v2.0</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500;800&display=swap" rel="stylesheet">
+    <title>Enes Çelebi | Source Code Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #00ff41; /* Neon Yeşil */
-            --bg: #050505;
-            --surface: rgba(255, 255, 255, 0.05);
-            --border: rgba(0, 255, 65, 0.2);
+            --bg-color: #1a1b26;        /* Göz yormayan koyu lacivert/antrasit */
+            --sidebar-color: #16161e;
+            --text-main: #a9b1d6;
+            --accent-green: #9ece6a;    /* Yumuşak nane yeşili */
+            --accent-blue: #7aa2f7;
+            --code-bg: #24283b;
+            --border-color: #292e42;
         }
-
-        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
         body {
-            background-color: var(--bg);
-            color: #fff;
-            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
             margin: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Arkaplan Matrix Tozları */
-        .bg-glow {
-            position: fixed;
-            top: 50%; left: 50%;
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(0, 255, 65, 0.1) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            background: var(--surface);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 50px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            position: relative;
-        }
-
-        /* Köşe Süslemeleri */
-        .container::before, .container::after {
-            content: ''; position: absolute; width: 30px; height: 30px;
-            border: 2px solid var(--primary);
-        }
-        .container::before { top: -5px; left: -5px; border-right: 0; border-bottom: 0; }
-        .container::after { bottom: -5px; right: -5px; border-left: 0; border-top: 0; }
-
-        header { margin-bottom: 50px; }
-
-        .title-group { position: relative; display: inline-block; }
-
-        h1 {
-            font-size: clamp(2rem, 5vw, 4rem);
-            font-weight: 800;
-            margin: 0;
-            letter-spacing: -2px;
-            background: linear-gradient(90deg, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .tagline {
-            color: var(--primary);
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-top: 10px;
-            opacity: 0.8;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 15px;
-            position: relative;
+            height: 100vh;
             overflow: hidden;
         }
 
-        .card:hover {
-            border-color: var(--primary);
-            transform: translateY(-10px);
-            background: rgba(0, 255, 65, 0.02);
-        }
-
-        .card h3 {
-            color: var(--primary);
-            font-size: 1.2rem;
-            margin-top: 0;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
-        }
-
-        .card p { font-size: 0.9rem; line-height: 1.6; color: #ccc; }
-
-        .stats-bar {
+        /* Sol Sidebar - Navigasyon */
+        aside {
+            width: 250px;
+            background-color: var(--sidebar-color);
+            border-right: 1px solid var(--border-color);
             display: flex;
-            gap: 20px;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: var(--accent-green);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .nav-item {
+            padding: 10px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .nav-item:hover {
+            background-color: var(--border-color);
+            color: #fff;
+        }
+
+        .nav-item.active {
+            background-color: rgba(158, 206, 106, 0.1);
+            color: var(--accent-green);
+        }
+
+        /* Ana İçerik Alanı */
+        main {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        header {
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin: 0;
+        }
+
+        .code-container {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            position: relative;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .code-header {
+            background-color: rgba(0,0,0,0.2);
+            padding: 10px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        .lang-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        pre {
+            margin: 0;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #cfc9c2;
+        }
+
+        /* Kod Renklendirme Simülasyonu */
+        .keyword { color: #bb9af7; }
+        .function { color: #7aa2f7; }
+        .string { color: #9ece6a; }
+        .comment { color: #565f89; font-style: italic; }
+
+        footer {
             margin-top: 50px;
-            padding-top: 30px;
-            border-top: 1px solid var(--border);
-        }
-
-        .stat-item { flex: 1; text-align: center; }
-        .stat-value { font-size: 1.5rem; color: var(--primary); font-weight: bold; }
-        .stat-label { font-size: 0.7rem; color: #666; text-transform: uppercase; }
-
-        .footer-nav {
-            margin-top: 40px;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 12px 25px;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            text-decoration: none;
             font-size: 0.8rem;
-            font-weight: 500;
-            border-radius: 8px;
-            background: transparent;
+            color: #565f89;
+            text-align: center;
         }
 
-        .btn:hover {
-            background: var(--primary);
-            color: #000;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
+        /* Mobil Uyumluluk */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            aside { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border-color); }
+            main { padding: 20px; }
         }
-
-        /* Animasyon */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .container { animation: fadeIn 1s ease-out; }
-
     </style>
 </head>
 <body>
 
-<div class="bg-glow"></div>
+    <aside>
+        <div class="logo">ENES_CELEBI.SRC</div>
+        <div class="nav-item active">_florist_automation.cs</div>
+        <div class="nav-item">_autonomous_logic.cpp</div>
+        <div class="nav-item">_data_structures.py</div>
+        <div class="nav-item">_contact.txt</div>
+    </aside>
 
-<div class="container">
-    <header>
-        <div class="title-group">
-            <h1>ENES ÇELEBİ</h1>
-            <div class="tagline">Junior Developer & 3D Specialist</div>
-        </div>
-    </header>
+    <main>
+        <header>
+            <h1>Source Code Viewer</h1>
+            <p style="font-size: 0.9rem; color: #565f89;">Raw file output: FloristAutomation/Core/StockManager.cs</p>
+        </header>
 
-    <div class="grid">
-        <div class="card">
-            <h3>SOFTWARE_CORE</h3>
-            <p>> C#, C++, Python <br>> Florist Automation Project <br>> Algorithm Development</p>
-        </div>
-        <div class="card">
-            <h3>ENGINEERING_MODULE</h3>
-            <p>> Autodesk Fusion 360 <br>> Mechanical Design <br>> Autonomous Vehicle Dev.</p>
-        </div>
-        <div class="card">
-            <h3>PERSONAL_DATA</h3>
-            <p>> Location: Karaman, TR <br>> Education: 10th Grade <br>> English: B1 Level</p>
-        </div>
-    </div>
+        <section class="code-container">
+            <div class="code-header">
+                <span class="lang-tag">C# / .NET</span>
+                <span style="font-size: 0.7rem; color: #565f89;">LINES: 14</span>
+            </div>
+<pre>
+<span class="keyword">using</span> System;
+<span class="keyword">using</span> System.Collections.Generic;
 
-    <div class="stats-bar">
-        <div class="stat-item">
-            <div class="stat-value">2026</div>
-            <div class="stat-label">Current Year</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-value">15</div>
-            <div class="stat-label">Subject Age</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-value">100%</div>
-            <div class="stat-label">Uptime</div>
-        </div>
-    </div>
+<span class="comment">// Çiçekçi Otomasyonu Stok Mantığı</span>
+<span class="keyword">public class</span> <span class="function">StockManager</span> 
+{
+    <span class="keyword">public void</span> <span class="function">UpdateStock</span>(<span class="keyword">string</span> flowerId, <span class="keyword">int</span> amount) 
+    {
+        <span class="comment">// Stok güncelleme algoritması</span>
+        <span class="function">Console</span>.<span class="function">WriteLine</span>(<span class="string">"Stok verisi işleniyor..."</span>);
+        <span class="function">ApplyChanges</span>(flowerId, amount);
+    }
+}</pre>
+        </section>
 
-    <div class="footer-nav">
-        <a href="https://github.com/enes-celeb" class="btn">VIEW_GITHUB</a>
-        <a href="https://instagram.com/Enes_celeb.i" class="btn">INSTAGRAM_CONTACT</a>
-        <a href="mailto:iletisim@enes.com" class="btn">SEND_ENCRYPTED_MAIL</a>
-    </div>
-</div>
+        <section class="code-container">
+            <div class="code-header">
+                <span class="lang-tag">C++ / Robotics</span>
+                <span style="font-size: 0.7rem; color: #565f89;">LINES: 8</span>
+            </div>
+<pre>
+<span class="keyword">#include</span> <span class="string">&lt;iostream&gt;</span>
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="comment">// Otonom araç sensör kontrolü</span>
+    <span class="function">std::cout</span> << <span class="string">"Sensor active: 1"</span> << <span class="function">std::endl</span>;
+    <span class="keyword">return</span> <span class="string">0</span>;
+}</pre>
+        </section>
+
+        <footer>
+            &copy; 2026 Source Code Repository - Terminal Style Portfolyo
+        </footer>
+    </main>
 
 </body>
 </html>
