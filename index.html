@@ -3,21 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enes Çelebi | Source Code Library</title>
+    <title>ENES_CELEBI.SRC | Source Viewer</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg-color: #1a1b26;        /* Göz yormayan koyu lacivert/antrasit */
-            --sidebar-color: #16161e;
+            --bg-dark: #1a1b26;
+            --sidebar-bg: #16161e;
+            --text-muted: #565f89;
             --text-main: #a9b1d6;
-            --accent-green: #9ece6a;    /* Yumuşak nane yeşili */
+            --accent-green: #9ece6a;
             --accent-blue: #7aa2f7;
-            --code-bg: #24283b;
-            --border-color: #292e42;
+            --code-block-bg: #24283b;
+            --border: #292e42;
+            --keyword: #bb9af7;
         }
 
+        * { box-sizing: border-box; }
+
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg-dark);
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             margin: 0;
@@ -26,93 +31,104 @@
             overflow: hidden;
         }
 
-        /* Sol Sidebar - Navigasyon */
+        /* Sol Menü - Dosya Gezgini */
         aside {
-            width: 250px;
-            background-color: var(--sidebar-color);
-            border-right: 1px solid var(--border-color);
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
             padding: 20px;
+            user-select: none;
         }
 
         .logo {
             font-family: 'JetBrains Mono', monospace;
             font-weight: 600;
             color: var(--accent-green);
-            margin-bottom: 40px;
-            font-size: 1.1rem;
+            margin-bottom: 30px;
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
         }
 
         .nav-item {
-            padding: 10px;
+            padding: 12px;
             margin-bottom: 5px;
             cursor: pointer;
             border-radius: 6px;
-            font-size: 0.9rem;
-            transition: 0.2s;
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
         }
 
         .nav-item:hover {
-            background-color: var(--border-color);
-            color: #fff;
+            background-color: rgba(122, 162, 247, 0.1);
+            color: var(--accent-blue);
         }
 
         .nav-item.active {
             background-color: rgba(158, 206, 106, 0.1);
             color: var(--accent-green);
+            border-left: 3px solid var(--accent-green);
         }
 
-        /* Ana İçerik Alanı */
+        /* Sağ İçerik Alanı */
         main {
             flex: 1;
             padding: 40px;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
 
-        header {
-            margin-bottom: 30px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
+        .code-section {
+            display: none; /* Başlangıçta tüm bölümler gizli */
+            animation: fadeIn 0.3s ease;
+        }
+
+        .code-section.active {
+            display: block; /* Sadece aktif olanı göster */
         }
 
         h1 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: #fff;
-            margin: 0;
+            margin: 0 0 10px 0;
+        }
+
+        .file-path {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-family: 'JetBrains Mono', monospace;
         }
 
         .code-container {
-            background-color: var(--code-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
+            background-color: var(--code-block-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
             position: relative;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .code-header {
             background-color: rgba(0,0,0,0.2);
-            padding: 10px 20px;
-            border-bottom: 1px solid var(--border-color);
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top-left-radius: 12px;
-            border-top-right-radius: 12px;
-        }
-
-        .lang-tag {
             font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent-blue);
             font-weight: 600;
+            color: var(--accent-blue);
+            text-transform: uppercase;
         }
 
         pre {
             margin: 0;
-            padding: 20px;
+            padding: 25px;
             overflow-x: auto;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.95rem;
@@ -120,23 +136,20 @@
             color: #cfc9c2;
         }
 
-        /* Kod Renklendirme Simülasyonu */
-        .keyword { color: #bb9af7; }
-        .function { color: #7aa2f7; }
-        .string { color: #9ece6a; }
-        .comment { color: #565f89; font-style: italic; }
+        /* Kod Renkleri */
+        .keyword { color: var(--keyword); }
+        .func { color: var(--accent-blue); }
+        .str { color: var(--accent-green); }
+        .comment { color: var(--text-muted); font-style: italic; }
 
-        footer {
-            margin-top: 50px;
-            font-size: 0.8rem;
-            color: #565f89;
-            text-align: center;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Mobil Uyumluluk */
         @media (max-width: 768px) {
             body { flex-direction: column; }
-            aside { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border-color); }
+            aside { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
             main { padding: 20px; }
         }
     </style>
@@ -145,58 +158,81 @@
 
     <aside>
         <div class="logo">ENES_CELEBI.SRC</div>
-        <div class="nav-item active">_florist_automation.cs</div>
-        <div class="nav-item">_autonomous_logic.cpp</div>
-        <div class="nav-item">_data_structures.py</div>
-        <div class="nav-item">_contact.txt</div>
+        <div class="nav-item active" onclick="showSection('cs-file', this)">_florist_automation.cs</div>
+        <div class="nav-item" onclick="showSection('cpp-file', this)">_autonomous_logic.cpp</div>
+        <div class="nav-item" onclick="showSection('info-file', this)">_contact.txt</div>
     </aside>
 
     <main>
-        <header>
-            <h1>Source Code Viewer</h1>
-            <p style="font-size: 0.9rem; color: #565f89;">Raw file output: FloristAutomation/Core/StockManager.cs</p>
-        </header>
-
-        <section class="code-container">
-            <div class="code-header">
-                <span class="lang-tag">C# / .NET</span>
-                <span style="font-size: 0.7rem; color: #565f89;">LINES: 14</span>
-            </div>
-<pre>
+        <div id="cs-file" class="code-section active">
+            <h1>Florist Automation System</h1>
+            <div class="file-path">Root/Projects/Automation/StockManager.cs</div>
+            <div class="code-container">
+                <div class="code-header">C# / .NET Source</div>
+                <pre>
 <span class="keyword">using</span> System;
-<span class="keyword">using</span> System.Collections.Generic;
 
-<span class="comment">// Çiçekçi Otomasyonu Stok Mantığı</span>
-<span class="keyword">public class</span> <span class="function">StockManager</span> 
-{
-    <span class="keyword">public void</span> <span class="function">UpdateStock</span>(<span class="keyword">string</span> flowerId, <span class="keyword">int</span> amount) 
-    {
-        <span class="comment">// Stok güncelleme algoritması</span>
-        <span class="function">Console</span>.<span class="function">WriteLine</span>(<span class="string">"Stok verisi işleniyor..."</span>);
-        <span class="function">ApplyChanges</span>(flowerId, amount);
+<span class="comment">// Otomasyon Stok Kontrol Ünitesi</span>
+<span class="keyword">public class</span> <span class="func">StockManager</span> {
+    <span class="keyword">private int</span> currentStock;
+
+    <span class="keyword">public void</span> <span class="func">UpdateStock</span>(<span class="keyword">int</span> amount) {
+        <span class="func">Console</span>.<span class="func">WriteLine</span>(<span class="str">"İşlem tamamlanıyor..."</span>);
+        this.currentStock += amount;
     }
 }</pre>
-        </section>
-
-        <section class="code-container">
-            <div class="code-header">
-                <span class="lang-tag">C++ / Robotics</span>
-                <span style="font-size: 0.7rem; color: #565f89;">LINES: 8</span>
             </div>
-<pre>
-<span class="keyword">#include</span> <span class="string">&lt;iostream&gt;</span>
+        </div>
 
-<span class="keyword">int</span> <span class="function">main</span>() {
-    <span class="comment">// Otonom araç sensör kontrolü</span>
-    <span class="function">std::cout</span> << <span class="string">"Sensor active: 1"</span> << <span class="function">std::endl</span>;
-    <span class="keyword">return</span> <span class="string">0</span>;
+        <div id="cpp-file" class="code-section">
+            <h1>Autonomous Vehicle Logic</h1>
+            <div class="file-path">Root/Robotics/MEB_Competition/MainDrive.cpp</div>
+            <div class="code-container">
+                <div class="code-header">C++ / Engineering</div>
+                <pre>
+<span class="keyword">#include</span> <span class="str">&lt;iostream&gt;</span>
+
+<span class="keyword">int</span> <span class="func">main</span>() {
+    <span class="comment">// Otonom sürüş sensör algoritması</span>
+    <span class="keyword">bool</span> sensorActive = <span class="keyword">true</span>;
+    
+    <span class="keyword">if</span>(sensorActive) {
+        <span class="func">std::cout</span> << <span class="str">"System Initialized"</span> << <span class="func">std::endl</span>;
+    }
+    <span class="keyword">return</span> 0;
 }</pre>
-        </section>
+            </div>
+        </div>
 
-        <footer>
-            &copy; 2026 Source Code Repository - Terminal Style Portfolyo
-        </footer>
+        <div id="info-file" class="code-section">
+            <h1>System Contact Information</h1>
+            <div class="file-path">Root/Personal/Contact.txt</div>
+            <div class="code-container">
+                <div class="code-header">Plain Text</div>
+                <pre>
+> DEVELOPER: Enes Çelebi
+> STATUS: 10th Grade Student / Geliştirici
+> LOCATION: Karaman, Türkiye
+> CONTACT: instagram.com/Enes_celeb.i
+> GOAL: Professional Programmer / Graphic Designer</pre>
+            </div>
+        </div>
     </main>
 
+    <script>
+        function showSection(sectionId, element) {
+            // Tüm bölümleri gizle
+            const sections = document.querySelectorAll('.code-section');
+            sections.forEach(s => s.classList.remove('active'));
+
+            // Tıklanan bölümü göster
+            document.getElementById(sectionId).classList.add('active');
+
+            // Menüdeki 'active' stilini güncelle
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(n => n.classList.remove('active'));
+            element.classList.add('active');
+        }
+    </script>
 </body>
 </html>
