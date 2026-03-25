@@ -1,0 +1,104 @@
+:root {
+    --bg-color: #1a1b26;
+    --sidebar-color: #16161e;
+    --text-main: #a9b1d6;
+    --accent-green: #9ece6a;
+    --accent-blue: #7aa2f7;
+    --code-bg: #24283b;
+    --border-color: #292e42;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+aside {
+    width: 260px;
+    background-color: var(--sidebar-color);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: var(--accent-green);
+    margin-bottom: 30px;
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-item {
+    padding: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+    transition: 0.2s;
+    color: #565f89;
+}
+
+.nav-item:hover {
+    background-color: rgba(122, 162, 247, 0.1);
+    color: var(--accent-blue);
+}
+
+.nav-item.active {
+    background-color: rgba(158, 206, 106, 0.1);
+    color: var(--accent-green);
+    border-left: 3px solid var(--accent-green);
+}
+
+main {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.code-section {
+    display: none; /* Başlangıçta gizli */
+}
+
+.code-section.active {
+    display: block; /* Sadece aktif olan görünür */
+}
+
+.code-container {
+    background-color: var(--code-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.code-header {
+    background-color: rgba(0,0,0,0.2);
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+}
+
+pre {
+    margin: 0;
+    padding: 20px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.6;
+}
+
+.keyword { color: #bb9af7; }
+.function { color: #7aa2f7; }
+.string { color: #9ece6a; }
+.comment { color: #565f89; font-style: italic; }
